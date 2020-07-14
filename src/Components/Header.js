@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import GlobalContext from './GlobalContext';
+import GlobalContext from '../GlobalContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +28,13 @@ const useStyles = makeStyles((theme) => ({
   padding: theme.spacing(1),
   color: 'white',
   textDecoration: 'none'
+  },
+  titleName:{
+    [theme.breakpoints.down('xs')] : {
+      display: 'none'
+      },
   }
+
 }));
 
 export default function Header() {
@@ -37,12 +43,12 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" xs={12}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6">Products</Typography>
+          <Typography variant="h6" className={classes.titleName}>Products</Typography>
           <Typography variant="h6" className={classes.title}>
             <Link to="/all" className={classes.linkStyle}>All</Link>
             <Link to="/men" className={classes.linkStyle}>Men</Link>

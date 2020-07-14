@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardMedia, CardContent, CardActions, Typography, Button } from '@material-ui/core';
 import { Grid, Container } from '@material-ui/core';
-import GlobalContext from './GlobalContext';
+import GlobalContext from '../GlobalContext';
 import {Link, useParams} from 'react-router-dom';
+import ProductsList from './ProductsList';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,11 +18,14 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         textDecoration: 'none'
     },
+
+    
 }));
 
-export default function Header({prod}) {
+export default function Products({prod}) {
     const classes = useStyles();
     const { id } = useParams();
+    
     
     const { addToCart } = useContext(GlobalContext);
     
@@ -32,7 +39,7 @@ export default function Header({prod}) {
 
 
     return (
-        <Card className={classes.root} spacing={0}>
+        <Card className={classes.root} spacing={0} style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
             <Link to={`/${id}/${prod.id}`} className={classes.linkStyle}>
                 <CardActionArea>
                     <CardMedia
@@ -53,12 +60,13 @@ export default function Header({prod}) {
                 </CardActionArea>
             </Link>
             <CardActions>
-                <Button variant="contained" size="large" color="primary" onClick={() => addToCart(prod)}>
+                {/* <Button variant="contained" size="large" color="primary" onClick={() => addToCart(prod)}>
                     Add to Cart
-                </Button>
-                <Button type="submit" style={{margin: '50px 0 0 0'}} fullWidth variant="contained" 
-                        color="primary">Add Cart</Button>  
+                </Button> */}
+                <Button type="submit" style={{margin: '10px 0 0 0'}} fullWidth onClick={() => addToCart(prod)} 
+                        variant="contained" color="primary">Add Cart</Button>  
             </CardActions>
         </Card>
+        
     );
 }

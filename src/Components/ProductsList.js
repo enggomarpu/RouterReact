@@ -6,11 +6,11 @@ import {
     Route, Link, Outlet, useParams
 } from 'react-router-dom';
 import { Card, CardActionArea, CardMedia, CardContent, CardActions, Typography, Button } from '@material-ui/core';
-import GlobalContext from './GlobalContext';
-import products from './Products.json';
-import ProductsList from './ProductsList';
-import { forInStatement } from '../node_modules/@babel/types';
+import GlobalContext from '../GlobalContext';
+import products from '../Products.json';
 import { Grid, Container } from '@material-ui/core';
+import Header from './Header';
+import Products from './Products';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function Products(props) {
+function ProductsList(props) {
     const classes = useStyles();
 
     const { id } = useParams();
@@ -45,17 +45,19 @@ function Products(props) {
 
     return (
         <div>
+          <Header />
         <h1 style={{textAlign: 'center'}}> Products {id.toUpperCase()} </h1>
             <Container>
-                <Grid container spacing={4}>
+                <Grid container spacing={4} style={{display: 'flex'}}>
                     {id !== "all" ?
                         products.filter(prod => prod.gender.includes(id.toUpperCase())).map(filteredNam => {
                             return (<Grid item xs={12} md={4}>
-                                        <ProductsList prod={filteredNam} />
+                                        <Products prod={filteredNam} />
+                                      
                                     </Grid>)
                         }) : products.map(prod => {
                                return (<Grid item xs={12} md={4}>
-                                            <ProductsList prod={prod} />    
+                                            <Products prod={prod} />    
                                         </Grid>)
                             })}
                     
@@ -89,4 +91,4 @@ function Products(props) {
       </CardActions>
     </Card> */}
 
-export default Products;
+export default ProductsList;

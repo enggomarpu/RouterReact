@@ -5,8 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import {Typography, Button} from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import {useParams} from 'react-router-dom';
-import products from './Products.json';
-import GlobalContext from './GlobalContext';
+import products from '../Products.json';
+import GlobalContext from '../GlobalContext';
+import Header from './Header';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +42,7 @@ export default function ComplexGrid() {
   return (
     
      <div className={classes.root}>
+     <Header />
       <h1 style={{textAlign: 'center'}}> Product Details </h1>
         {products.filter(product => product.id == prodid).map(pro => {
         return (
@@ -67,7 +70,7 @@ export default function ComplexGrid() {
                   <Typography variant="h6" gutterBottom spacing={4}>
                     Items Left: {pro.items_left}
                   </Typography>
-                  <Button type="submit" style={{margin: '50px 0 0 0'}} fullWidth variant="contained" 
+                  <Button type="submit" style={{margin: '10px 0 0 0'}} fullWidth variant="contained" 
                         color="primary" onClick={() => addToCart(pro)}>Add Cart</Button>    
             </Grid>
           </Grid>

@@ -2,15 +2,17 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
-import Home from "./Home";
+import Home from "./Components/Home";
+
 import {
     BrowserRouter as Router,
     Routes,
     Route, Link, Outlet, useParams
 } from 'react-router-dom';
 // import {AddToCart} from './GlobalProvider';
-import Products from './Products';
-import ProductDetail from './ProductDetail';
+import Products from './Components/Products';
+import ProductsList from './Components/ProductsList';
+import ProductDetail from './Components/ProductDetail';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,11 +51,20 @@ export  default function App() {
             </nav> */}
             
             <Routes>
-                <Route path="/" element={<Home />}>
+
+                <Route path="/" element={<Home />} />
+                <Route path="/:id" element={<ProductsList />} />
+                <Route path={`/:id/:prodid`} element={<ProductDetail />} />
+            
+              
+
+                {/* these are nested routes, these retain the contents of home page while you 
+                    are navigating to other pages */}
+                {/* <Route path="/" element={<Home />}>
                   <Route path=":id" element={<Products />} />
                   <Route path={`/:id/:prodid`} element={<ProductDetail />} />
-                    
-                </Route>
+                </Route> */}
+
                 <Route path="/dashboard" element={<Dashboard />}>
                     <Route path="/" element={<DashboardIndex />} />
                     {/* <Route path=":id" element={<DashboardShoe />} /> */}
