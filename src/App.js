@@ -40,8 +40,12 @@ export default function App() {
 
 
    useEffect(()=>{
-       
-    const deviceToken = '379d424b0cf1fe9c81a3e4';
+
+   
+
+   }, [])
+
+    //const deviceToken = '379d424b0cf1fe9c81a3e4';
     Pushy.register({ appId: '607d3e9ebe50e00f1b8f55ab' }).then(function (deviceToken) {
         // Print device token to console
         console.log('Pushy device token: ' + deviceToken);
@@ -54,7 +58,6 @@ export default function App() {
         // Handle registration errors
         console.error(err);
     });
-   }, [])
 
     // Handle push notifications (only when web page is open)
     Pushy.setNotificationListener(function (data) {
