@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
 
 
+   useEffect(()=>{
+       
     const deviceToken = '379d424b0cf1fe9c81a3e4';
     Pushy.register({ appId: '607d3e9ebe50e00f1b8f55ab' }).then(function (deviceToken) {
         // Print device token to console
@@ -52,6 +54,7 @@ export default function App() {
         // Handle registration errors
         console.error(err);
     });
+   }, [])
 
     // Handle push notifications (only when web page is open)
     Pushy.setNotificationListener(function (data) {
