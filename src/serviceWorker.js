@@ -9,6 +9,9 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
+// Import Pushy Service Worker 1.0.7
+
+importScripts('https://sdk.pushy.me/web/1.0.7/pushy-service-worker.js');
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||

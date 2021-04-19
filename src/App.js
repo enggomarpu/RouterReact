@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Home from "./Components/Home";
+import Pushy from 'pushy-sdk-web';
+
 
 import {
     BrowserRouter as Router,
@@ -16,25 +18,54 @@ import ProductDetail from './Components/ProductDetail';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
-      justifyContent: 'center',
-      textAlign: 'center'
+        flexGrow: 1,
+        justifyContent: 'center',
+        textAlign: 'center'
     },
-    linkStyle:{
-    padding: theme.spacing(1),
-    color: 'white',
-    textDecoration: 'none'
+    linkStyle: {
+        padding: theme.spacing(1),
+        color: 'white',
+        textDecoration: 'none'
     },
-  }));
-  
+}));
 
-export  default function App() {
+
+export default function App() {
+
+
+    const deviceToken = '379d424b0cf1fe9c81a3e4';
+    Pushy.register({ appId: '607d3e9ebe50e00f1b8f55ab' }).then(function (deviceToken) {
+        // Print device token to console
+        console.log('Pushy device token: ' + deviceToken);
+
+        // Send the token to your backend server via an HTTP GET request
+        //fetch('https://your.api.hostname/register/device?token=' + deviceToken);
+
+        // Succeeded, optionally do something to alert the user
+    }).catch(function (err) {
+        // Handle registration errors
+        console.error(err);
+    });
+
+    // Handle push notifications (only when web page is open)
+    Pushy.setNotificationListener(function (data) {
+        // Print notification payload data
+        console.log('Received notification: ' + JSON.stringify(data));
+
+        // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
+        let message = data.message || 'Test notification';
+
+        // Display an alert with message sent from server
+        alert('Received notification: ' + message);
+    });
+
+
     const classes = useStyles();
     return (
         <>
@@ -49,14 +80,14 @@ export  default function App() {
                 <Link to="/men" style={{padding: '10px'}}>Men</Link>
                 <Link to="/women" style={{padding: '10px'}}>Women</Link>
             </nav> */}
-            
+
             <Routes>
 
                 <Route path="/" element={<Home />} />
                 <Route path="/:id" element={<ProductsList />} />
                 <Route path={`/:id/:prodid`} element={<ProductDetail />} />
-            
-              
+
+
 
                 {/* these are nested routes, these retain the contents of home page while you 
                     are navigating to other pages */}
@@ -75,7 +106,7 @@ export  default function App() {
     );
 }
 export function Dashboard() {
-    return(
+    return (
         <div>
             <h1>Dashboard</h1>
             <Outlet />
@@ -84,15 +115,15 @@ export function Dashboard() {
 }
 export function DashboardIndex() {
     const productCategory = ["MEN", "WOMEN", "KIDS", "ALL"]
-    return(
+    return (
         <div>
             <ul>
                 {
-                    productCategory.map((prod, id)=>{
+                    productCategory.map((prod, id) => {
                         return (
                             <Link to={`/dashboard/${prod}`}><li>
                                 <h4>{prod}</h4>
-                                
+
                             </li></Link>)
                     })
                 }
@@ -104,7 +135,7 @@ export function DashboardIndex() {
 }
 function DashboardShoe() {
     // const { id } = useParams();
-    
+
     // return(
     //     <div>
     //       { id !== "all" ?  
@@ -116,13 +147,13 @@ function DashboardShoe() {
     //     </div>
     // );
 }
-function DashboardDetail(){
-//   const { prodid } = useParams();
-//   return(
-//     <div>
-//       hello g {prodid}
-//       </div>
-// );
+function DashboardDetail() {
+    //   const { prodid } = useParams();
+    //   return(
+    //     <div>
+    //       hello g {prodid}
+    //       </div>
+    // );
 }
 // function AddCart(cartObj){
 //     return(
